@@ -1,0 +1,59 @@
+<h1>dispatch_latency</h1>
+
+<p>Message latency studies for Qpid Dispatch Router</p>
+
+<h2>1.6.0 Late April, 2019</h2>
+
+<h3>This setup is meant to simulate a potential user&rsquo;s architecture.</h3>
+
+<ul>
+<li>There is 1 router.</li>
+<li>Each client is a separate running process (the program written
+in C to the Proactor interface.)</li>
+<li>Each client has 1 connection with 1 link to the router.</li>
+<li>Each receiver gets its own address.</li>
+<li>There are 40 senders for each receiver.</li>
+<li>Each sender sends 10 messages per second.</li>
+<li>Each message has 100 bytes of payload.</li>
+<li>The messages are not presettled.</li>
+<li>The router has 16 worker threads.</li>
+<li>The messages are <em>not</em> pre-settled.</li>
+<li>The tests were set up and run by the Mercury testing system. ( https://github.com/mgoulish/mercury ).</li>
+</ul>
+
+
+<p> <br/></p>
+
+<h3>Hardware</h3>
+
+<ul>
+<li>16 cores on a single chip. 32 threads.</li>
+<li>3.0 GHz</li>
+<li>AMD Ryzen Threadripper 1950X</li>
+<li>64 GB RAM</li>
+</ul>
+
+
+<p><br/></p>
+
+<h3>The Tests</h3>
+
+<ul>
+<li>7 tests, varying the number of receivers: 30, 50, 70, 100, 150, 170, 200.</li>
+<li>Each test has simillar number of total messages sent, always close to 10 million.</li>
+<li>Each message has a timestamp placed into the body by the sender just before send-time.</li>
+<li>The receiver takes a time reading immediately after receiving each message, then parses out the send-timestamp, finds the flight time, and stores that in a large pre-allocated array.</li>
+<li>No memory allocation by the client code at runtime.</li>
+<li>Also no printing by the clients at runtime. Flight times are stored in a large array and printed out only after the test is complete.</li>
+</ul>
+
+
+<p><br/></p>
+
+<h3>The Graphs</h3>
+
+<ul>
+<li>Data is processed into graphable form by some Go code ( Checked in here, but soon to become part of the Mercury testing system. )</li>
+<li>And then turned into graphs by gnuplot.</li>
+</ul>
+
