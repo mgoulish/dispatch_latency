@@ -1,0 +1,40 @@
+
+About the graphs
+-----------------------------------
+
+Each test's results are displayed in two separate graphs.
+And please note that the scales on the Y-axes of the two graphs
+are always different. Otherwise you wouldn't be able to see
+any interesting structure in either.
+
+The first graph displays all data up to "2 Nines". The second
+graph displays all data from 2 Nines to Max.
+
+What does that mean?
+
+As each message arrives at the receiver, its total flight time 
+is measured by the receiver. All these flight-time numbers are
+first gathered into a list and then "binned". The continuous 
+latency numberline is divided into discrete chunks -- "bins" -- 
+of 10 microseconds each, and we count how many messages fell 
+into each of those bins. That gives us a list of integer counts, 
+and it is this list of integers which is graphed.  The purple 
+curve you see in the images is the resulting histogram.
+
+There are also vertical red lines on the graph, with labels like
+"1 Nine", "2 Nine", etc.  Those lines show what percentage of all
+images are to the left of them in the graph, i.e. at that latency
+or faster. For example, if the "3 Nine" line is at 0.7 msec, it 
+means that 0.999 of all messages had latencies of 0.7 msec or faster.
+By comparing the values of these lines between tests you can see
+changes that would otherwise be much too subtle to detect visually.
+
+
+Each directory contains the results from a separate series of tests,
+with { 30, 50, 70, 100, 150, 170, 200 } receivers, and also contains
+a summary image combining all of those at once. The individual 
+results images were made with the data processing software stored in 
+this project, but the summary image combining them all was made by hand.
+
+
+
