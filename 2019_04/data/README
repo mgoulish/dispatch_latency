@@ -1,0 +1,16 @@
+The data directories that belong here are instead stored at:
+
+   https://drive.google.com/drive/folders/1n9U8iQhgBDTP7nGbv4XFMbNAB4jltSdl?usp=sharing
+
+That link should be readbale by all Red Hat.
+It points to the equivalent of this directory : 
+
+     dispatch_latency/2019_04/data 
+
+But then what outght to ge the subdirectories { 30, 50, 70, 100, 150, 170, 200 }
+are instead storead as  tar.gz  files.
+
+
+Sorry, I could not upload so much data here.
+
+
