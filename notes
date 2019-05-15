@@ -1,0 +1,53 @@
+Wed May 15 02:53:47 EDT 2019
+{
+  Sending messages presettled does not help.
+  In fact, it slows them down.
+
+  The relevant code is in the C proactor client in Mercury
+     ( https://github.com/mgoulish/mercury )
+
+  in  process_event() , in the case for PN_CONNECTION_INIT.
+
+  To send the messages unsettled, do this on all the links:
+
+        // trial 1 
+        pn_link_set_snd_settle_mode ( context->addrs[i].link, PN_SND_UNSETTLED );
+        pn_link_set_rcv_settle_mode ( context->addrs[i].link, PN_RCV_FIRST );
+
+  To send the pre-settled, I wasn't sure what I should do with the receive 
+  settle mode, so I tried both ways.
+
+      // trial 2 
+      // do not specify any receive settle mode.
+      pn_link_set_snd_settle_mode ( context->addrs[i].link, PN_SND_SETTLED );
+
+
+      // trial 3
+      // specify that the receiver settles second.
+      pn_link_set_snd_settle_mode ( context->addrs[i].link, PN_SND_SETTLED );
+      pn_link_set_rcv_settle_mode ( context->addrs[i].link, PN_RCV_SECOND );
+
+
+  For each of these, I ran a test with 45 sender-receiver pairs, throttling to
+  1000 messages per second, 100 bytes payload per message.
+
+  Here are the results :
+
+     mean latency, in msec
+
+     trial 1 : 10.84260
+
+     trial 2 : 11.19267
+
+     trial 3 : 12.39805
+
+
+  So!   
+
+     Let's keep sending them unsettled !
+}
+
+
+
+
+
