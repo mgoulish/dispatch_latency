@@ -51,3 +51,76 @@ Wed May 15 02:53:47 EDT 2019
 
 
 
+
+Thu May 16 10:37:51 EDT 2019
+{
+  Total calls, across the whole router network,
+  to some of the AMQP_* functions. (The interesting
+  critical-path ones).
+
+  We expect these to scale as the number of routers...
+  and they DO.
+
+  So that's good.
+  But then where is the extra timing coming from?
+
+
+  1 -------------------
+  {
+    conn  : 900090            1.0
+    dispo : 450000            1.0
+    flow  : 900000            1.0
+    rx    : 450000            1.0
+    total : 2700090           1.0
+  }
+
+
+  2 -------------------
+  {
+    conn  : 1397113           1.5
+    dispo : 900541            2.0
+    flow  : 1219849           1.4
+    rx    : 900541            2.0
+    total : 4418044           1.6
+  }
+
+
+  3 -------------------
+  {
+    conn  : 2620218           2.9
+    dispo : 1352712           3.0
+    flow  : 2040723           2.3
+    rx    : 1352712           3.0
+    total : 7366365           2.7
+  }
+
+
+  4 -------------------
+  {
+    conn  : 3720868           4.1
+    dispo : 1805776           4.0
+    flow  : 2773753           3.0
+    rx    : 1805776           4.0
+    total : 10106173          3.7
+  }
+
+
+  5 -------------------
+  {
+    conn  : 4861928           5.4
+    dispo : 2254693           5.0
+    flow  : 3519855           3.9
+    rx    : 2254693           5.0
+    total : 12891169          4.7
+  }
+
+}
+
+
+
+
+
+
+
+
+
