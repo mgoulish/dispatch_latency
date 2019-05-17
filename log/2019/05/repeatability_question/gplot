@@ -1,0 +1,8 @@
+set autoscale
+unset key
+set ylabel "mean latency"
+set xlabel "number of routers in linear network"
+set terminal jpeg size 2000,500
+set output "45_1.jpg"
+set title "45 Sender-Receiver Pairs\n1 ... 5 Routers Linear Network"
+plot "./data" with linespoints lc rgb 'blue' lw 3

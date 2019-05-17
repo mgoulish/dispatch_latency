@@ -1,0 +1,9 @@
+Thu May 16 13:45:47 EDT 2019
+{
+  I just now repeated the 5 runs for 45 sender-receiver pairs,
+  linear network length 1 .. 5 ,
+
+  and put the data in  ./data
+
+  
+}
