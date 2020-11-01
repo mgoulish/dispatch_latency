@@ -1,0 +1,71 @@
+<h1>dispatch_latency</h1>
+
+<p>Message latency studies for Qpid Dispatch Router</p>
+
+<h2>Date</h2>
+
+<p>  2020 10 30</p>
+
+<h2>Versions</h2>
+
+<ul>
+<li>dispatch: 1.15.0-SNAPSHOT</li>
+<li>proton: 0.33.0-SNAPSHOT</li>
+</ul>
+
+
+<h3>This setup is meant to simulate a potential user&rsquo;s architecture.</h3>
+
+<ul>
+<li>There is 1 router.</li>
+<li>Each client is a separate running process (the program written
+in C to the Proactor interface.)</li>
+<li>Each client has 1 connection with 1 link to the router.</li>
+<li>Each receiver gets its own address.</li>
+<li>There are 40 senders for each receiver.</li>
+<li>Each sender sends 10 messages per second.</li>
+<li>Each message has 100 bytes of payload.</li>
+<li>The messages are not presettled.</li>
+<li>The router has 16 worker threads.</li>
+<li>The messages are <em>not</em> pre-settled.</li>
+<li>The tests were set up and run by the Mercury testing system. ( https://github.com/mgoulish/mercury ).</li>
+</ul>
+
+
+<p> <br/></p>
+
+<h3>Hardware</h3>
+
+<ul>
+<li>AMD Ryzen Threadripper 3970X 32-Core 3.7 GHz</li>
+<li>256 GB RAM</li>
+</ul>
+
+
+<p><br/></p>
+
+<h3>The Tests</h3>
+
+<ul>
+<li>1 router, N senders, N receivers, N addresses &ndash; all colocated on one box, where N = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 9500, 10000 }</li>
+<li>Each message has a timestamp placed into the body by the sender just before send-time.</li>
+<li>The receiver takes a time reading immediately after receiving each message, then parses out the send-timestamp, finds the flight time, and stores that in a large pre-allocated array.</li>
+<li>No memory allocation by the client code at runtime.</li>
+<li>Also no printing by the clients at runtime. Flight times are stored in an array and printed out only after the test is complete.</li>
+</ul>
+
+
+<p><br/></p>
+
+<h3>The Graphs</h3>
+
+<ul>
+<li><p>The results are in two graphs. The first shows results from testing 1000 sender-receiver pairs, up to 9000.  The second contains all the same data as the first, but it also includes the last two tests: 9500 and 10000.   ( The last two tests change the scale quite a bit. )</p></li>
+<li><p>Both graphs show two curves: the mean latency for all messages, and the 99% line &ndash; the timing that includes 99% of all messages.</p></li>
+<li><p>The graphs are in this directory: 2020_10_30_latency.jpg and 2020_10_30_latency_first_nine.jpg</p></li>
+</ul>
+
+
+<h3>Note on speed</h3>
+
+<p>If these timings seem faster than what you remember, it&rsquo;s because they are. In the past I mistakenly allowed senders to start sending even while other clients were still starting up and attaching to the router. That caused some very slow timings near the beginning of the test, which distorted results.</p>

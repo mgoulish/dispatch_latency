@@ -1,0 +1,11 @@
+set autoscale
+unset key
+set ylabel "latency (msec)"
+set xlabel "Sender-Receiver Pairs"
+set terminal jpeg size 2000,500
+set output "2020_10_30_latency.jpg"
+set title "Dispatch Router Latency"
+set label "mean" at 9500,0.7
+set label "99%" at 9500,3.5
+plot "mean" with linespoints lt rgb "red" lw 3 , \
+     "99" with linespoints lt rgb "orange" lw 2
